@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="asia_red">#E60404</color>
+    <color name="asia_oxford">#393D42</color>
+    <color name="asia_surface">#F8F9FA</color>
+    <color name="asia_text_muted">#6C757D</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

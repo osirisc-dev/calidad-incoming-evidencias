@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ASIA ROBÓTICA"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#E60404"
+            android:letterSpacing="0.05"
+            android:fontFamily="sans-serif-black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REGISTRO DE EVIDENCIAS"
+            android:textSize="14sp"
+            android:textColor="#393D42"
+            android:letterSpacing="0.1"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="24dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#F0F0F0"
+            android:layout_marginBottom="32dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PASO 1 DE 2 · IDENTIFICA EL EQUIPO"
+            android:textColor="#E60404"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06"
+            android:layout_marginBottom="12dp" />
+
+        <LinearLayout
+            android:id="@+id/layoutPaso1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Número de serie del equipo"
+                android:textColor="#393D42"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/etNumeroSerie"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:hint="Ej. MAQ-2026"
+                android:textColorHint="#9E9E9E"
+                android:textColor="#393D42"
+                android:inputType="textCapCharacters"
+                android:background="@android:drawable/edit_text"
+                android:paddingHorizontal="16dp"
+                android:layout_marginBottom="24dp" />
+
+            <Button
+                android:id="@+id/btnValidar"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Buscar Equipo"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                app:backgroundTint="#E60404"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="6dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutPaso2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvEquipoConfirmado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F8F9FA"
+                android:padding="12dp"
+                android:textColor="#393D42"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:id="@+id/tvTituloPaso2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PASO 2 DE 2 · AGREGA EVIDENCIA"
+                android:textColor="#E60404"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/tvEtiquetaCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categoría de evidencia"
+                android:textColor="#393D42"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:cardBackgroundColor="#393D42"
+                app:cardCornerRadius="6dp"
+                app:cardElevation="0dp"
+                android:layout_marginBottom="16dp">
+                <Spinner
+                    android:id="@+id/spinnerCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#FFFFFF"
+                    android:paddingHorizontal="8dp"/>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/layoutSerieExterna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <CheckBox
+                    android:id="@+id/cbAgregarSerieExterna"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#E60404"
+                    android:text="Agregar NS externo"
+                    android:textColor="#393D42"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/etSerieExterna"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:drawable/edit_text"
+                    android:hint="Número de serie externo"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="100"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#393D42"
+                    android:textColorHint="#9E9E9E"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutBotonesArchivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <Button
+                    android:id="@+id/btnAbrirGaleria"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Galería"
+                    app:backgroundTint="#393D42"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="6dp"
+                    app:icon="@android:drawable/ic_menu_gallery"
+                    app:iconTint="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnAbrirCamara"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Cámara"
+                    app:backgroundTint="#393D42"
+                    android:textColor="#FFFFFF"
+                    app:cornerRadius="6dp"
+                    app:icon="@android:drawable/ic_menu_camera"
+                    app:iconTint="#FFFFFF" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvContadorArchivos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0 archivos seleccionados"
+                android:textColor="#6C757D"
+                android:textSize="13sp"
+                android:layout_marginBottom="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMiniaturas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="24dp" />
+
+            <Button
+                android:id="@+id/btnSubir"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Comprimir y subir a Drive"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="#E60404"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="6dp" />
+
+            <Button
+                android:id="@+id/btnCambiarEquipo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Cancelar y cambiar equipo"
+                android:textSize="14sp"
+                app:backgroundTint="#393D42"
+                android:textColor="#FFFFFF"
+                app:cornerRadius="6dp"
+                android:visibility="gone"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutProgreso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="32dp"
+            android:background="#F8F9FA"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvProgresoTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Procesando archivos..."
+                android:textColor="#393D42"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <ProgressBar
+                android:id="@+id/barraProgreso"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:progressTint="#E60404"
+                android:layout_marginBottom="8dp"
+                android:max="100" />
+
+            <TextView
+                android:id="@+id/tvProgresoArchivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Iniciando..."
+                android:textColor="#6C757D"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvEstado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:accessibilityLiveRegion="polite"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</ScrollView>

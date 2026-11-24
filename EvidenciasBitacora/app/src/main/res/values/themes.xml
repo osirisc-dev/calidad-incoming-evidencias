@@ -1,0 +1,14 @@
+<resources>
+    <style name="Base.Theme.EvidenciasBitacora" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/asia_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/asia_oxford</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="android:statusBarColor">@color/asia_oxford</item>
+        <item name="android:navigationBarColor">@color/asia_oxford</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="Theme.EvidenciasBitacora" parent="Base.Theme.EvidenciasBitacora" />
+</resources>

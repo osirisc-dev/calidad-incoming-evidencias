@@ -1,0 +1,29 @@
+# Android Studio / IntelliJ
+*.iml
+.gradle/
+.idea/
+.kotlin/
+local.properties
+
+# Compilación y archivos generados
+/build/
+/app/build/
+/app/release/
+/captures/
+.externalNativeBuild/
+.cxx/
+
+# Firma de versiones release: nunca publicar
+*.jks
+*.keystore
+key.properties
+keystore.properties
+signing.properties
+
+# Copias locales de Apps Script
+/appscript/
+/incoming/
+/tests/
+
+# Sistema operativo
+.DS_Store

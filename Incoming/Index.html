@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Incoming | Asia Robótica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #E60404;
+            --secondary: #FFFFFF;
+            --accent: #393D42;
+            --bg-color: #f0f2f5;
+            --text-body: #333333;
+            --border-radius: 12px;
+        }
+
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-color); color: var(--text-body); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; margin: 0; padding: 20px; }
+        
+        .form-container { background-color: var(--secondary); padding: 0 0 30px 0; border-radius: var(--border-radius); box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 600px; overflow: hidden; }
+        
+        .form-banner {
+            width: 100%;
+            background-color: #f8fafc;
+            border-bottom: 4px solid var(--primary);
+            padding: 20px 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .form-banner img { max-height: 55px; width: auto; display: block; }
+
+        .form-content-padding { padding: 0 20px; }
+        
+        h2 { text-align: center; color: var(--accent); font-weight: 700; font-size: 24px; line-height: 1.3; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        h3 { color: var(--accent); font-weight: 700; font-size: 16px; margin-top: 25px; margin-bottom: 12px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; text-transform: uppercase; }
+        .brand-line { height: 4px; width: 60px; background-color: var(--primary); margin: 0 auto 30px auto; border-radius: 2px; }
+        
+        .tabs-container { display: flex; gap: 5px; margin-bottom: 25px; background: #f1f5f9; padding: 5px; border-radius: 10px; }
+        .tab-btn { flex: 1; padding: 12px 5px; border: none; background: transparent; color: #64748b; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; box-shadow: none; margin: 0; text-transform: none; letter-spacing: 0; text-align: center; }
+        .tab-btn:hover { background-color: #e2e8f0; }
+        .tab-btn.active { background-color: var(--secondary); color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .form-group { margin-bottom: 24px; }
+        label { display: block; margin-bottom: 8px; color: var(--accent); font-weight: 700; font-size: 14px; }
+        
+        input[type="text"], input[type="email"], input[type="number"], select, textarea {
+            width: 100%; padding: 14px 16px; border: 1px solid #d1d5db; background-color: #f9fafb;
+            border-radius: 8px; box-sizing: border-box; font-size: 15px;
+            font-family: 'Montserrat', sans-serif; transition: all 0.3s ease;
+        }
+        textarea { resize: vertical; min-height: 80px; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background-color: #fff; outline: none; box-shadow: 0 0 0 3px rgba(230, 4, 4, 0.1); }
+        
+        #zona-evaluacion { margin-top: 30px; border-top: 2px solid #e5e7eb; padding-top: 24px; display: none; }
+        
+        .evaluacion-item { 
+            background-color: #ffffff; 
+            border: 1px solid #e5e7eb; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-bottom: 20px; 
+        }
+        
+        .pieza-header { margin-bottom: 16px; }
+        .pieza-titulo { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+        .pieza-criterio { font-size: 12px; color: #6b7280; line-height: 1.4; display: block; }
+        
+        .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+        .radio-group input[type="radio"] { display: none; }
+        .radio-group span { display: flex; justify-content: center; align-items: center; gap: 6px; padding: 12px 8px; border: 2px solid #e5e7eb; border-radius: 8px; font-weight: 600; font-size: 14px; color: #6b7280; cursor: pointer; transition: all 0.2s ease; text-align: center; }
+        .radio-cumple input:checked + span { background-color: #ecfdf5; border-color: #10b981; color: #047857; }
+        .radio-nocumple input:checked + span { background-color: #fef2f2; border-color: #ef4444; color: #b91c1c; }
+        
+        .comentario-input { width: 100%; padding: 12px; border: 1px solid #d1d5db; background-color: #f9fafb; border-radius: 8px; box-sizing: border-box; font-size: 14px; font-family: 'Montserrat', sans-serif; margin-bottom: 16px; }
+        
+        .custom-file-wrapper { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+        .custom-file-btn { background-color: #f8fafc; border: 2px dashed #cbd5e1; color: #475569; padding: 10px; text-align: center; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: block; font-size: 13px; }
+        .texto-foto { font-size: 12px; color: #6b7280; text-align: center; font-weight: 600; }
+        .foto-ok { color: #10b981; }
+
+        .btn-submit { width: 100%; padding: 16px; background-color: var(--primary); color: var(--secondary); border: none; border-radius: 8px; font-size: 16px; font-weight: 700; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; margin-top: 10px; transition: background-color 0.3s ease; box-shadow: 0 4px 6px rgba(230, 4, 4, 0.2); }
+        .btn-submit:disabled { background-color: #9ca3af; cursor: not-allowed; box-shadow: none; }
+        
+        .estado-carga { text-align: center; font-size: 14px; color: var(--accent); margin-bottom: 15px; font-weight: 600;}
+        .oculto { display: none !important; }
+
+        .check-group { display: flex; flex-direction: column; gap: 10px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .check-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; font-weight: 600; color: #475569; }
+        .check-item input[type="checkbox"] { margin-top: 3px; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="form-banner">
+            <img src="https://lh3.googleusercontent.com/d/1c5U7sTFeN5nwEQvJ0pAC-vTvMbV_UJtc" alt="Logo Asia Robótica">
+        </div>
+        
+        <div class="form-content-padding">
+            <h2>Calidad Incoming</h2>
+            <div class="brand-line"></div>
+            
+            <div class="tabs-container">
+                <button type="button" id="btn-tab-maquinas" class="tab-btn active" onclick="cambiarModo('maquinas')">🤖 Máquinas</button>
+                <button type="button" id="btn-tab-refacciones" class="tab-btn" onclick="cambiarModo('refacciones')">⚙️ Refacciones</button>
+                <button type="button" id="btn-tab-reclamaciones" class="tab-btn" onclick="cambiarModo('reclamaciones')">⚠️ Reclamaciones</button>
+            </div>
+
+            <form id="miFormulario">
+                <div class="form-group">
+                    <label for="correo">Correo Empresarial:</label>
+                    <input type="email" id="correo" value="<?= correoUsuario ?>" required readonly style="background-color: #e9ecef; cursor: not-allowed;" placeholder="Detectando correo...">
+                </div>
+
+                <div class="form-group" id="contenedor-comun-contenedor">
+                    <label for="contenedor">Referencia del contenedor:</label>
+                    <input type="text" id="contenedor" required placeholder="Ej: CT-987">
+                </div>
+                
+                <div class="form-group" id="contenedor-comun-referencia">
+                    <label for="referencia">Referencia del Equipo / STL:</label>
+                    <input type="text" id="referencia" required placeholder="Ej: REF-001">
+                </div>
+
+                <!-- Máquinas -->
+                <div id="grupo-maquinas">
+                    <div class="form-group">
+                        <label for="serie">Número de Serie interno:</label>
+                        <input type="text" id="serie" placeholder="Ej: SN-12345">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="proveedor">Proveedor de la Máquina:</label>
+                        <select id="proveedor">
+                            <option value="" disabled selected>-- Selecciona el proveedor --</option>
+                            <option value="TIGERTEC">TIGERTEC</option>
+                            <option value="POMELO">POMELO</option>
+                            <option value="WUXI">WUXI</option>
+                            <option value="TODO PARA AIRE">TODO PARA AIRE</option>
+                            <option value="BLUE ELEPHANT">BLUE ELEPHANT</option>
+                            <option value="BLUE TIMES">BLUE TIMES</option>
+                            <option value="HILASER">HILASER</option>
+                            <option value="FORTECH">FORTECH</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="select-maquina">Selecciona el equipo:</label>
+                        <div id="cargando-maquinas" class="estado-carga">Cargando catálogo... ⏳</div>
+                        <select id="select-maquina" style="display: none;">
+                            <option value="" disabled selected>-- Elige una opción técnica --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Refacciones -->
+                <div id="grupo-refacciones" class="oculto">
+                    <div class="form-group" style="background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                        <label for="buscador-codigo"> Escanea o Ingresa AR Code / ERP Code:</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="buscador-codigo" placeholder="Ej: P04041" onkeypress="if(event.key === 'Enter') { event.preventDefault(); buscarRefaccion(); }">
+                            <button type="button" onclick="buscarRefaccion()" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: bold; background: var(--accent); color: white; border: none; cursor: pointer;">Buscar</button>
+                        </div>
+                        <div id="mensaje-busqueda" style="font-size: 13px; margin-top: 8px; font-weight: bold;"></div>
+                    </div>
+                    <div id="cargando-refacciones" class="estado-carga">Cargando base de datos de refacciones... ⏳</div>
+                </div>
+
+                <!-- Reclamaciones -->
+                <div id="grupo-reclamaciones" class="oculto">
+                    <div class="form-group" style="background: #fef2f2; padding: 15px; border-radius: 8px; border: 1px solid #fca5a5;">
+                        <label for="serie-reclamo">🔍 Ingresa Número de Serie para Reclamación:</label>
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="serie-reclamo" placeholder="Ej: SN-12345" onkeypress="if(event.key === 'Enter') { event.preventDefault(); verificarSerieHistorial(); }">
+                            <button type="button" onclick="verificarSerieHistorial()" style="width: auto; padding: 0 20px; border-radius: 8px; font-weight: bold; background: var(--primary); color: white; border: none; cursor: pointer;">Verificar</button>
+                        </div>
+                        <div id="mensaje-reclamo" style="font-size: 13px; margin-top: 8px; font-weight: bold;"></div>
+                    </div>
+
+                    <div id="campos-reporte-reclamo" class="oculto">
+                      <input type="hidden" id="rec-modelo" value="">
+                        <h3>3. Detalles del Incidente</h3>
+                        <div class="form-group">
+                            <label for="rec-defecto">3.1 Descripción del defecto:</label>
+                            <textarea id="rec-defecto" placeholder="Descripción técnica, objetiva de qué falló y en qué parte específica..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rec-etapa">3.2 Etapa de detección:</label>
+                            <select id="rec-etapa">
+                                <option value="" disabled selected>-- Elige una etapa --</option>
+                                <option value="Recepción en almacén">Recepción en almacén</option>
+                                <option value="Ensamble / Armado">Ensamble / Armado</option>
+                                <option value="Prueba funcional con carga">Prueba funcional con carga</option>
+                                <option value="Prueba final de calidad">Prueba final de calidad</option>
+                                <option value="Instalación en sitio del cliente">Instalación en sitio del cliente</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rec-justificacion">3.3 Justificación de detección tardía:</label>
+                            <textarea id="rec-justificacion" placeholder="Por qué no era detectable en inspección visual de entrada..."></textarea>
+                        </div>
+
+                        <h3>4. Evidencia Objetiva (Máx. 3 fotos)</h3>
+                        <div class="evaluacion-item" style="padding:15px; background:#fdfdfd;">
+                            <div class="custom-file-wrapper" id="contenedor-fotos-reclamo">
+                            </div>
+                        </div>
+
+                        <h3>5. Impacto Operativo y Económico</h3>
+                        <div class="form-group">
+                            <label for="rec-horas">Total de Horas Técnico Invertidas (Diagnóstico, Desarmado y Armado):</label>
+                            <input type="number" id="rec-horas" placeholder="Ej: 8" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="rec-costo">Costo Estimado Total del Incidente ($ USD):</label>
+                            <input type="number" id="rec-costo" placeholder="Ej: 2500" min="0">
+                        </div>
+
+                        <h3>6. Requerimientos al Proveedor</h3>
+                        <div class="check-group">
+                            <label class="check-item"><input type="checkbox" id="req-acuse"> Acuse y reconocimiento escrito</label>
+                            <label class="check-item"><input type="checkbox" id="req-reposicion"> Reposición del componente sin costo (incluyendo flete)</label>
+                            <label class="check-item"><input type="checkbox" id="req-compensacion"> Compensación económica (Nota de crédito / Descuento)</label>
+                            <label class="check-item"><input type="checkbox" id="req-revision"> Revisión e inspección adicional del lote activo en su fábrica</label>
+                        </div>
+
+                        <h3>10. Clasificación del Incidente</h3>
+                        <div class="form-group">
+                            <label for="cl-severidad">Severidad del defecto:</label>
+                            <select id="cl-severidad">
+                                <option value="Baja">Baja</option>
+                                <option value="Media" selected>Media</option>
+                                <option value="Alta">Alta</option>
+                                <option value="Crítica">Crítica</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cl-reincidencia">Reincidencia con este proveedor:</label>
+                            <select id="cl-reincidencia">
+                                <option value="Primera vez" selected>Primera vez</option>
+                                <option value="Segunda vez">Segunda vez</option>
+                                <option value="Reincidente">Reincidente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cl-impacto">Impacto al cliente final:</label>
+                            <select id="cl-impacto">
+                                <option value="No" selected>No</option>
+                                <option value="Riesgo potencial">Riesgo potencial</option>
+                                <option value="Sí">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="zona-evaluacion">
+                    <div id="bloque-piezas"></div>
+                    
+                    <div class="form-group" id="contenedor-comentarios-generales" style="margin-top: 30px; border-top: 2px solid #e5e7eb; padding-top: 24px;">
+                        <label for="comentarios-generales">Comentarios Adicionales de la Evaluación:</label>
+                        <input type="text" id="comentarios-generales" placeholder="Opcional...">
+                    </div>
+                    
+                    <div class="form-group" id="contenedor-disposicion">
+                        <label for="disposicion">Disposición Final del Equipo:</label>
+                        <select id="disposicion">
+                            <option value="" disabled selected>-- Selecciona el Dictamen Técnico --</option>
+                            <option value="Aceptado">Aceptado / Accepted</option>
+                            <option value="Aceptado con Desviación">Aceptado con Desviación / Accepted with Deviation</option>
+                            <option value="Rechazado">Rechazado / Rejected</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="btnEnviar" class="btn-submit">Enviar Reporte</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) { window.location.reload(); }
+        });
+        
+        const formulario = document.getElementById('miFormulario');
+        const btnTabMaquinas = document.getElementById('btn-tab-maquinas');
+        const btnTabRefacciones = document.getElementById('btn-tab-refacciones');
+        const btnTabReclamaciones = document.getElementById('btn-tab-reclamaciones');
+        
+        const grupoMaquinas = document.getElementById('grupo-maquinas');
+        const grupoRefacciones = document.getElementById('grupo-refacciones');
+        const grupoReclamaciones = document.getElementById('grupo-reclamaciones');
+        const camposReporteReclamo = document.getElementById('campos-reporte-reclamo');
+        
+        const selectMaquina = document.getElementById('select-maquina');
+        const inputSerie = document.getElementById('serie');
+        const divDisposicionGeneral = document.getElementById('contenedor-disposicion');
+        const divComentariosGenerales = document.getElementById('contenedor-comentarios-generales');
+        
+        const zonaEvaluacion = document.getElementById('zona-evaluacion');
+        const bloquePiezas = document.getElementById('bloque-piezas');
+        const cargandoMaquinas = document.getElementById('cargando-maquinas');
+        const cargandoRefacciones = document.getElementById('cargando-refacciones');
+        const boton = document.getElementById('btnEnviar');
+        
+        let modoActual = 'maquinas'; 
+        let baseDeDatosMaquinas = {};
+        let listaRefacciones = []; 
+        let refaccionActual = null; 
+        let modeloReclamoTemporal = "";
+
+        const idsReclamacion = ['rec-defecto', 'rec-etapa', 'rec-justificacion', 'rec-horas', 'rec-costo'];
+
+        window.onload = function() {
+            google.script.run.withSuccessHandler(inicializarFormularioMaquinas).obtenerMaquinas();
+            google.script.run.withSuccessHandler(inicializarListaRefacciones).obtenerRefacciones();
+            construirSlotsFotosReclamacion();
+        };
+
+        function cambiarModo(modo) {
+            modoActual = modo;
+            zonaEvaluacion.style.display = 'none';
+            bloquePiezas.innerHTML = '';
+            document.getElementById('mensaje-busqueda').innerText = '';
+            document.getElementById('buscador-codigo').value = '';
+            document.getElementById('serie-reclamo').value = '';
+            document.getElementById('mensaje-reclamo').innerText = '';
+            camposReporteReclamo.classList.add('oculto');
+            refaccionActual = null;
+            
+            const contContenedor = document.getElementById('contenedor-comun-contenedor');
+            const contReferencia = document.getElementById('contenedor-comun-referencia');
+            
+            btnTabMaquinas.classList.remove('active');
+            btnTabRefacciones.classList.remove('active');
+            btnTabReclamaciones.classList.remove('active');
+            
+            grupoMaquinas.classList.add('oculto');
+            grupoRefacciones.classList.add('oculto');
+            grupoReclamaciones.classList.add('oculto');
+ 
+            idsReclamacion.forEach(id => document.getElementById(id).required = false);
+
+            if (modo === 'maquinas') {
+                btnTabMaquinas.classList.add('active');
+                grupoMaquinas.classList.remove('oculto');
+                contContenedor.classList.remove('oculto');
+                contReferencia.classList.remove('oculto');
+                inputSerie.required = true;
+                selectMaquina.required = true;
+                document.getElementById('contenedor').required = true;
+                document.getElementById('referencia').required = true;
+                document.getElementById('proveedor').required = true;
+                
+                divDisposicionGeneral.classList.remove('oculto');
+                divComentariosGenerales.classList.remove('oculto'); 
+                document.getElementById('disposicion').required = true;
+            } else if (modo === 'refacciones') {
+                btnTabRefacciones.classList.add('active');
+                grupoRefacciones.classList.remove('oculto');
+                contContenedor.classList.remove('oculto');
+                contReferencia.classList.remove('oculto');
+                inputSerie.required = false;
+                selectMaquina.required = false;
+                document.getElementById('contenedor').required = true;
+                document.getElementById('referencia').required = true;
+                document.getElementById('proveedor').required = false;
+                
+                divDisposicionGeneral.classList.add('oculto');
+                divComentariosGenerales.classList.add('oculto'); 
+                document.getElementById('disposicion').required = false;
+                
+                if(!listaRefacciones || listaRefacciones.length === 0){
+                    cargandoRefacciones.style.display = 'block';
+                    cargandoRefacciones.innerText = 'No hay refacciones pendientes en la hoja.';
+                } else {
+                    cargandoRefacciones.style.display = 'none';
+                }
+            } else if (modo === 'reclamaciones') {
+                btnTabReclamaciones.classList.add('active');
+                grupoReclamaciones.classList.remove('oculto');
+                
+                contContenedor.classList.add('oculto');
+                contReferencia.classList.add('oculto');
+                document.getElementById('contenedor').required = false;
+                document.getElementById('referencia').required = false;
+                document.getElementById('proveedor').required = false;
+                inputSerie.required = false;
+                selectMaquina.required = false;
+                
+                divDisposicionGeneral.classList.add('oculto');
+                divComentariosGenerales.classList.add('oculto');
+                document.getElementById('disposicion').required = false;
+            } 
+        }
+
+        function inicializarFormularioMaquinas(datos) {
+            baseDeDatosMaquinas = datos;
+            Object.keys(baseDeDatosMaquinas).sort().forEach(nombre => {
+                let opcion = document.createElement('option');
+                opcion.value = nombre; opcion.textContent = nombre;
+                selectMaquina.appendChild(opcion);
+            });
+            cargandoMaquinas.style.display = 'none';
+            selectMaquina.style.display = 'block';
+        }
+
+        function inicializarListaRefacciones(datos) {
+            listaRefacciones = datos;
+            cargandoRefacciones.style.display = 'none';
+        }
+
+        function generarBloqueHTML(index, tituloVisual, subtitulo, tituloBackend, identificador, mostrarDisposicion = false) {
+            let htmlDisp = "";
+            if (mostrarDisposicion) {
+                htmlDisp = `
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed #e5e7eb;">
+                    <label style="font-size: 13px; margin-bottom: 6px; display: block; font-weight: bold; color: var(--accent);">Disposición de esta refacción:</label>
+                    <select id="disp_item_${index}" required style="padding: 10px; font-size: 13px; width: 100%; border-radius: 6px; border: 1px solid #d1d5db;">
+                        <option value="" disabled selected>-- Dictamen Técnico --</option>
+                        <option value="Aceptado">Aceptado / Accepted</option>
+                        <option value="Aceptado con Desviación">Aceptado con Desviación / Accpt. w/ Deviation</option>
+                        <option value="Rechazado">Rechazado / Rejected</option>
+                    </select>
+                </div>`;
+            }
+
+            let htmlFotos = "";
+            for (let f = 1; f <= 3; f++) {
+                htmlFotos += `
+                <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; background: #f8fafc; padding: 4px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <span style="font-size: 11px; font-weight: 700; color: #475569; width: 50px;">Foto ${f}:</span>
+                    <button type="button" class="custom-file-btn" style="flex: 1; padding: 5px; margin:0; font-size:11px;" onclick="seleccionarFoto(${index}, ${f}, 'camara')"> Camara</button>
+                    <button type="button" class="custom-file-btn" style="flex: 1; padding: 5px; margin:0; font-size:11px;" onclick="seleccionarFoto(${index}, ${f}, 'galeria')"> Galería</button>
+                    <input type="file" id="foto_${index}_${f}" style="display:none;" accept="image/*" onchange="actualizarTextoFoto(this, ${index}, ${f})">
+                    <span id="texto-foto-${index}-${f}" class="texto-foto" style="flex: 1.5; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size:11px;">No elegida</span>
+                </div>`;
+            }
+
+            return `
+            <div class="evaluacion-item">
+                <div class="pieza-header">
+                    <div class="pieza-titulo">${tituloVisual}</div>
+                    ${subtitulo ? `<span class="pieza-criterio" style="margin-top: 6px;">${subtitulo}</span>` : ''}
+                </div>
+                
+                <div class="radio-group">
+                    <label class="radio-cumple">
+                        <input type="radio" name="eval_${index}" value="Cumple" required>
+                        <span> Cumple</span>
+                    </label>
+                    <label class="radio-nocumple">
+                        <input type="radio" name="eval_${index}" value="No cumple" required>
+                        <span> No cumple</span>
+                    </label>
+                </div>
+                
+                ${htmlDisp}
+                
+                <input type="text" class="comentario-input" id="comentario_${index}" placeholder=" Comentarios u observaciones..." style="margin-top:15px;">
+                
+                <div class="custom-file-wrapper">
+                    <label style="font-size: 12px; margin-bottom: 2px; font-weight: bold;">Evidencias de Inspección (Máx. 3):</label>
+                    ${htmlFotos}
+                </div>
+
+                <input type="hidden" id="nombreEval_${index}" value="${tituloBackend}">
+                <input type="hidden" id="idEval_${index}" value="${identificador}">
+            </div>`;
+        }
+
+        function construirSlotsFotosReclamacion() {
+            const contenedor = document.getElementById('contenedor-fotos-reclamo');
+            let html = "";
+            for (let f = 1; f <= 3; f++) {
+                html += `
+                <div style="display: flex; gap: 8px; align-items: center; margin-top: 6px; background: #f1f5f9; padding: 6px; border-radius: 6px;">
+                    <span style="font-size: 12px; font-weight: 700; color: #334155; width: 60px;">Evidencia ${f}:</span>
+                    <button type="button" class="custom-file-btn" style="flex: 1; padding: 6px; margin:0;" onclick="seleccionarFoto('rec', ${f}, 'camara')"> Cámara</button>
+                    <button type="button" class="custom-file-btn" style="flex: 1; padding: 6px; margin:0;" onclick="seleccionarFoto('rec', ${f}, 'galeria')"> Galería</button>
+                    <input type="file" id="foto_rec_${f}" style="display:none;" accept="image/*" onchange="actualizarTextoFoto(this, 'rec', ${f})">
+                    <span id="texto-foto-rec-${f}" class="texto-foto" style="flex: 1.5; text-align: left;">No seleccionada</span>
+                </div>`;
+            }
+            contenedor.innerHTML = html;
+        }
+
+        window.seleccionarFoto = function(index, numFoto, modo) {
+            const input = document.getElementById(`foto_${index}_${numFoto}`);
+            if (modo === 'camara') { input.setAttribute('capture', 'environment'); } 
+            else { input.removeAttribute('capture'); }
+            input.click(); 
+        };
+
+        window.actualizarTextoFoto = function(input, index, numFoto) {
+            const spanTexto = document.getElementById(`texto-foto-${index}-${numFoto}`);
+            if (input.files && input.files.length > 0) {
+                spanTexto.innerHTML = `Lista`;
+                spanTexto.classList.add('foto-ok');
+            } else {
+                spanTexto.innerHTML = "No seleccionada";
+                spanTexto.classList.remove('foto-ok');
+            }
+        };
+
+        function verificarSerieHistorial() {
+            const serie = document.getElementById('serie-reclamo').value.trim();
+            const msj = document.getElementById('mensaje-reclamo');
+            camposReporteReclamo.classList.add('oculto');
+            
+            idsReclamacion.forEach(id => document.getElementById(id).required = false);
+            
+            if(!serie) {
+                msj.innerText = " Escribe un número de serie válido.";
+                msj.style.color = "#E60404";
+                return;
+            }
+            msj.innerText = "Buscando registro en historial... ⏳";
+            msj.style.color = "#64748b";
+            
+            google.script.run
+              .withSuccessHandler(function(resultado) {
+                if(resultado) {
+                    msj.innerHTML = ` Serie localizada: <b>${resultado.modelo}</b><br>Inspeccionada el: ${resultado.fecha} por ${resultado.inspector}`;
+                    msj.style.color = "#10b981";
+                    camposReporteReclamo.classList.remove('oculto');
+                    
+                    idsReclamacion.forEach(id => document.getElementById(id).required = true);
+                    
+                    document.getElementById('contenedor').value = resultado.contenedor;
+                    document.getElementById('referencia').value = resultado.referencia;
+                    document.getElementById('rec-modelo').value = resultado.modelo;
+                    modeloReclamoTemporal = resultado.modelo;
+                } else {
+                    msj.innerText = " No se encontró ningún registro de Incoming con esta serie.";
+                    msj.style.color = "#E60404";
+                }
+              })
+              .withFailureHandler(function(error) {
+                msj.innerText = " Error de red o servidor: " + error.message;
+                msj.style.color = "#E60404";
+                alert("Falla del servidor: " + error.message + "\n\nRECUERDA: Si acabas de guardar los cambios, debes probarlos usando la URL de pruebas que termina en '/dev'.");
+              })
+              .consultarRegistroPorSerie(serie);
+        }
+
+        function buscarRefaccion() {
+            const query = document.getElementById('buscador-codigo').value.trim().toUpperCase();
+            const msj = document.getElementById('mensaje-busqueda');
+            bloquePiezas.innerHTML = '';
+            zonaEvaluacion.style.display = 'none';
+            refaccionActual = null;
+
+            if (!query) { msj.innerText = "Ingresa un código válido."; msj.style.color = "#E60404"; return; }
+            const item = listaRefacciones.find(r => r.arCode.toUpperCase() === query || r.erpCode.toUpperCase() === query);
+
+            if (item) {
+                msj.innerText = "Refacción encontrada."; msj.style.color = "#10b981";
+                refaccionActual = item; 
+                let tituloVisual = `<span style="color: #64748b;">AR:</span> ${item.arCode}    |    <span style="color: #64748b;">ERP:</span> ${item.erpCode} <br><span style="font-size: 14px; font-weight: normal; color: #4A5568; display: block; margin-top: 4px;">${item.descripcion}</span>`;
+                let tituloBackend = `NP: ${item.erpCode} - ${item.descripcion}`;
+                let subtitulo = `Ordenado: <b>${item.ordenado}</b>    |    Enviado (A revisar): <b style="color: var(--primary); font-size: 14px;">${item.enviado}</b>`;
+                
+                bloquePiezas.innerHTML = generarBloqueHTML(0, tituloVisual, subtitulo, tituloBackend, item.erpCode, true);
+                zonaEvaluacion.style.display = 'block';
+            } else {
+                msj.innerText = "❌ Código no encontrado en la lista de pendientes."; msj.style.color = "#E60404";
+            }
+        }
+
+        selectMaquina.addEventListener('change', function() {
+            const maquinaElegida = selectMaquina.value;
+            const piezas = baseDeDatosMaquinas[maquinaElegida];
+            bloquePiezas.innerHTML = ''; 
+
+            if (piezas && piezas.length > 0) {
+                let htmlContenido = `<h3 style="color: var(--accent); margin-bottom: 24px; font-size: 20px;">Equipo: <span style="color: var(--primary);">${maquinaElegida}</span></h3>`;
+                piezas.forEach((item, index) => {
+                    htmlContenido += generarBloqueHTML(index, item.pieza, item.criterio, item.pieza, "Pieza", false);
+                });
+                bloquePiezas.innerHTML = htmlContenido;
+                zonaEvaluacion.style.display = 'block';
+            }
+        });
+
+        function optimizarImagen(file, maxWidth = 1024, maxHeight = 1024, quality = 0.7) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width; let height = img.height;
+                        if (width > height) {
+                            if (width > maxWidth) { height = Math.round(height *= maxWidth / width); width = maxWidth; }
+                        } else {
+                            if (height > maxHeight) { width = Math.round(width *= maxHeight / height); height = maxHeight; }
+                        }
+                        canvas.width = width; canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        resolve(canvas.toDataURL('image/jpeg', quality));
+                    };
+                    img.onerror = error => reject(error);
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        formulario.addEventListener('submit', async function(evento) {
+            evento.preventDefault();
+            
+            if (modoActual === 'reclamaciones' && camposReporteReclamo.classList.contains('oculto')) {
+                alert("Por favor, verifica un número de serie válido antes de enviar tu reclamación.");
+                return;
+            }
+            if (modoActual === 'refacciones' && !refaccionActual) {
+                alert("Por favor, busca y selecciona una refacción válida antes de enviar.");
+                return;
+            }
+
+            boton.disabled = true;
+            boton.innerText = "Subiendo datos... ⏳";
+
+            let confirmarSobrescritura = false;
+            if (modoActual === 'maquinas') {
+                const serieConsultada = document.getElementById('serie').value.trim();
+                boton.innerText = "Verificando número de serie... ⏳";
+                try {
+                    const estado = await new Promise((resolve, reject) => {
+                        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)
+                            .consultarSerieExistente(serieConsultada);
+                    });
+                    if (modoActual !== 'maquinas' || document.getElementById('serie').value.trim() !== serieConsultada) {
+                        alert("El número de serie cambió durante la consulta. Revisa los datos y vuelve a enviar.");
+                        boton.disabled = false;
+                        boton.innerText = "ENVIAR REPORTE";
+                        return;
+                    }
+                    if (estado.existe) {
+                        const ubicaciones = [
+                            estado.enIncoming ? 'Respuestas' : null,
+                            estado.enBitacora ? 'Bitácora' : null
+                        ].filter(Boolean).join(' y ');
+                        confirmarSobrescritura = confirm(
+                            `La serie ${serieConsultada} ya existe en ${ubicaciones}. ¿Deseas reemplazar sus datos y el enlace del PDF? ` +
+                            'Las fotos y reportes anteriores permanecerán en Drive.'
+                        );
+                        if (!confirmarSobrescritura) {
+                            boton.disabled = false;
+                            boton.innerText = "ENVIAR REPORTE";
+                            return;
+                        }
+                    }
+                    boton.innerText = "Subiendo datos... ⏳";
+                } catch (error) {
+                    alert("No se pudo comprobar el número de serie: " + (error.message || error));
+                    boton.disabled = false;
+                    boton.innerText = "ENVIAR REPORTE";
+                    return;
+                }
+            }
+
+            const referenciaComun = document.getElementById('referencia').value;
+
+            if (modoActual === 'reclamaciones') {
+                const chkAcuse = document.getElementById('req-acuse').checked;
+                const chkReposicion = document.getElementById('req-reposicion').checked;
+                const chkCompensacion = document.getElementById('req-compensacion').checked;
+                const chkRevision = document.getElementById('req-revision').checked;
+
+                if (!chkAcuse && !chkReposicion && !chkCompensacion && !chkRevision) {
+                    alert("⚠️ Debes seleccionar al menos un Requerimiento para el Proveedor antes de enviar.");
+                    boton.disabled = false;
+                    boton.innerText = "ENVIAR REPORTE";
+                    return;
+                }
+
+                try {
+                    let fotosReclamo = [];
+                    for (let f = 1; f <= 3; f++) {
+                        const fInput = document.getElementById(`foto_rec_${f}`);
+                        if (fInput && fInput.files.length > 0) {
+                            const file = fInput.files[0];
+                            const base64 = await optimizarImagen(file);
+                            fotosReclamo.push({
+                                base64: base64,
+                                nombre: `Reclamo_${document.getElementById('serie-reclamo').value}_F${f}_${file.name}`
+                            });
+                        }
+                    }
+
+                    const datosReclamacion = {
+                        correo: document.getElementById('correo').value,
+                        serie: document.getElementById('serie-reclamo').value.trim(),
+                        modelo: modeloReclamoTemporal,
+                        contenedor: document.getElementById('contenedor').value,
+                        referencia: referenciaComun,
+                        defecto: document.getElementById('rec-defecto').value.trim(),
+                        etapa: document.getElementById('rec-etapa').value,
+                        justificacion: document.getElementById('rec-justificacion').value.trim(),
+                        fotos: fotosReclamo,
+                        cHoras: document.getElementById('rec-horas').value,
+                        cCosto: document.getElementById('rec-costo').value,
+                        reqAcuse: document.getElementById('req-acuse').checked,
+                        reqReposicion: document.getElementById('req-reposicion').checked,
+                        reqCompensacion: document.getElementById('req-compensacion').checked,
+                        reqRevision: document.getElementById('req-revision').checked,
+                        clSeveridad: document.getElementById('cl-severidad').value,
+                        clReincidencia: document.getElementById('cl-reincidencia').value,
+                        clImpacto: document.getElementById('cl-impacto').value
+                    };
+
+                    google.script.run.withSuccessHandler(exitoEnvio).withFailureHandler(fallaEnvio).guardarReclamacion(datosReclamacion);
+
+                } catch (err) {
+                    alert("Error al empaquetar imágenes de reclamación.");
+                    boton.disabled = false; boton.innerText = "ENVIAR REPORTE";
+                }
+                return;
+            }
+
+            const totalItems = modoActual === 'maquinas' ? baseDeDatosMaquinas[selectMaquina.value].length : 1;
+            let evaluaciones = [];
+
+            try {
+                for (let i = 0; i < totalItems; i++) {
+                    const seleccion = document.querySelector(`input[name="eval_${i}"]:checked`).value;
+                    const comentario = document.getElementById(`comentario_${i}`).value.trim();
+                    const nombreEval = document.getElementById(`nombreEval_${i}`).value;
+                    const idEval = document.getElementById(`idEval_${i}`).value;
+                    
+                    let cantidadEval = "N/A"; let disposicionIndividual = "N/A";
+                    if (modoActual === 'refacciones' && refaccionActual) {
+                        cantidadEval = refaccionActual.enviado;
+                        disposicionIndividual = document.getElementById(`disp_item_${i}`).value;
+                    }
+                    
+                    let listaFotosSubir = [];
+                    for (let f = 1; f <= 3; f++) {
+                        const fotoInput = document.getElementById(`foto_${i}_${f}`);
+                        if (fotoInput && fotoInput.files.length > 0) {
+                            const file = fotoInput.files[0];
+                            const fotoBase64 = await optimizarImagen(file);
+                            let fotoNombre = modoActual === 'maquinas' ? 
+                                `Serie_${document.getElementById('serie').value}_${nombreEval}_F${f}_${file.name}` :
+                                `Ref_${referenciaComun}_${idEval}_F${f}_${file.name}`;
+
+                            listaFotosSubir.push({ base64: fotoBase64, nombre: fotoNombre });
+                        }
+                    }
+
+                    evaluaciones.push({
+                        pieza: nombreEval, cantidad: cantidadEval, disposicionItem: disposicionIndividual,
+                        seleccion: seleccion, comentario: comentario, fotos: listaFotosSubir
+                    });
+                }
+
+                const datosBase = {
+                    correo: document.getElementById('correo').value,
+                    contenedor: document.getElementById('contenedor').value,
+                    referencia: referenciaComun, 
+                    comentariosGenerales: document.getElementById('comentarios-generales').value.trim(), 
+                    disposicion: document.getElementById('disposicion') ? document.getElementById('disposicion').value : "N/A",
+                    evaluaciones: evaluaciones,
+                    codigoRefaccion: (modoActual === 'refacciones' && refaccionActual) ? refaccionActual.erpCode : null 
+                };
+
+                if (modoActual === 'maquinas') {
+                    datosBase.serie = document.getElementById('serie').value;
+                    datosBase.nombreMaquina = selectMaquina.value;
+                    datosBase.proveedor = document.getElementById('proveedor').value;
+                    datosBase.confirmarSobrescritura = confirmarSobrescritura;
+                    google.script.run.withSuccessHandler(exitoEnvio).withFailureHandler(fallaEnvio).guardarDatos(datosBase);
+                } else {
+                    google.script.run.withSuccessHandler(exitoEnvio).withFailureHandler(fallaEnvio).guardarRefacciones(datosBase); 
+                }
+
+            } catch (error) {
+                alert("Error al procesar imágenes de inspección.");
+                boton.disabled = false; boton.innerText = "ENVIAR REPORTE";
+            }
+        });
+
+        function exitoEnvio(respuesta) {
+            const exitoParcial = typeof respuesta === 'string' && respuesta.startsWith('Éxito parcial:');
+            if(respuesta === "Éxito" || exitoParcial) {
+                if(modoActual === 'maquinas' || modoActual === 'reclamaciones') {
+                    alert(exitoParcial ? respuesta :
+                        (modoActual === 'maquinas' ? "¡Reporte de Incoming enviado!" : "¡Reporte de Reclamación formal guardado!"));
+                    formulario.reset();
+                    construirSlotsFotosReclamacion(); 
+                    cambiarModo('maquinas');
+                } else {
+                    listaRefacciones = listaRefacciones.filter(r => r.erpCode !== refaccionActual.erpCode);
+                    document.getElementById('buscador-codigo').value = '';
+                    document.getElementById('mensaje-busqueda').innerText = 'Guardado. Escanea la siguiente refacción.';
+                    document.getElementById('mensaje-busqueda').style.color = '#3b82f6';
+                    bloquePiezas.innerHTML = ''; zonaEvaluacion.style.display = 'none';
+                    refaccionActual = null;
+                    document.getElementById('buscador-codigo').focus(); 
+                }
+            } else {
+                alert("Error del servidor: " + respuesta);
+            }
+            boton.disabled = false; boton.innerText = "ENVIAR REPORTE";
+        }
+
+        function fallaEnvio(error) {
+            alert("Falla crítica de red o error del servidor.");
+            boton.disabled = false; boton.innerText = "ENVIAR REPORTE";
+        }
+    </script>
+</body>
+</html>
